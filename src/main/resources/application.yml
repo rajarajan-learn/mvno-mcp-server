@@ -1,0 +1,28 @@
+spring:
+  ai:
+    mcp:
+      server:
+        version: 0.0.1
+        #stdio: true #need this for stdio mode
+        protocol: STREAMABLE
+        type: SYNC
+        streamable-http:
+          mcp-endpoint: /mcp
+        annotation-scanner:
+          enabled: true
+  main:
+    banner-mode: "off"
+    #web-application-type: none # uncomment this line for stdio mode to disable console mode
+  application:
+    name: mvno-mcp-server
+
+server:
+  port: 8080
+
+logging:
+  console:
+    enabled: true #false for stdio
+  level:
+    root: INFO
+  file:
+    name: mcp-server.log
