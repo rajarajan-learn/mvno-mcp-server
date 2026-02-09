@@ -32,4 +32,4 @@ logging:
   level:
     root: INFO
   file:
-    name: mcp-server.log
+    name: ${user.home}/logs/mvno-mcp-server/mnvo-mcp-server.log
