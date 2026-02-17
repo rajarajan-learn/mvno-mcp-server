@@ -21,7 +21,7 @@ import org.springaicommunity.mcp.security.server.config.McpServerOAuth2Configure
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Value("${security.oauth2.resourceserver.jwt.issuer-uri}")
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuerUri;
 
     @Bean
