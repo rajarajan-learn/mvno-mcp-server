@@ -19,8 +19,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://keycloak-poc.onwavemaker.com/realms/keycloakdemo
-          # jwk-set-uri: http://localhost:8080/realms/your-realm/protocol/openid-connect/certs # Alternative
+          issuer-uri: https://keycloak-poc.onwavemaker.com/realms/AiIntegration
 
 server:
   port: 8080
