@@ -3,7 +3,7 @@ spring:
     mcp:
       server:
         version: 0.0.1
-        #stdio: true #need this for stdio mode
+        stdio: false # disabled for streamable mode
         protocol: STREAMABLE
         type: SYNC
         streamable-http:
@@ -12,16 +12,31 @@ spring:
           enabled: true
   main:
     banner-mode: "off"
-    #web-application-type: none # uncomment this line for stdio mode to disable console mode
+    web-application-type: servlet # enabled for streamable mode
   application:
     name: mvno-mcp-server
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://keycloak-poc.onwavemaker.com/realms/AiIntegration
+          #jwk-set-uri: https://keycloak-poc.onwavemaker.com/realms/AiIntegration/protocol/openid-connect/certs
 
+mcp:
+  security:
+    required-scope: mcp:tools
+    subject-claim: preferred_username
+    audience: ai-integration
+    allowed-clients:
+      - ai-integration
+      -
 server:
-  port: 8080
+  port: 8081
+
 
 logging:
   console:
-    enabled: true #false for stdio
+    enabled: true # enabled for streamable mode
   level:
     root: INFO
   file:

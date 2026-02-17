@@ -26,23 +26,24 @@ public class SubscriptionService {
 
     private static final Logger logger = LoggerFactory.getLogger(SubscriptionService.class);
 
-    public SubscriptionService(PlanService planService) {
+    public SubscriptionService(
+            PlanService planService) {
         this.planService = planService;
         seedSubscribers();
     }
 
     @McpTool
-    public ChangePlanResponse changePlan(String subscriberId, String planId) {
+    public ChangePlanResponse changePlan(String planId) {
         Plan plan = planService.findById(planId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Plan not found"));
 
-        subscriberPlans.put(subscriberId, planId);
-        return new ChangePlanResponse(subscriberId, plan, Instant.now(), "PENDING_ACTIVATION");
+        subscriberPlans.put(UtilService.getCurrentUser(), planId);
+        return new ChangePlanResponse(UtilService.getCurrentUser(), plan, Instant.now(), "PENDING_ACTIVATION");
     }
 
 
-    private Optional<Plan> getCurrentPlan(String subscriberId) {
-        String planId = subscriberPlans.get(subscriberId);
+    private Optional<Plan> getCurrentPlan() {
+        String planId = subscriberPlans.get(UtilService.getCurrentUser());
         if (planId == null) {
             return Optional.empty();
         }
@@ -50,8 +51,8 @@ public class SubscriptionService {
     }
 
     @McpTool
-    public Plan getCurrentPlanOrThrow(String subscriberId) {
-        return getCurrentPlan(subscriberId)
+    public Plan getCurrentPlanOrThrow() {
+        return getCurrentPlan()
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Subscriber not found"));
     }
 
