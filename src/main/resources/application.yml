@@ -20,9 +20,18 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://keycloak-poc.onwavemaker.com/realms/AiIntegration
+          #jwk-set-uri: https://keycloak-poc.onwavemaker.com/realms/AiIntegration/protocol/openid-connect/certs
 
+mcp:
+  security:
+    required-scope: mcp:tools
+    subject-claim: preferred_username
+    audience: ai-integration
+    allowed-clients:
+      - ai-integration
+      -
 server:
-  port: 8080
+  port: 8081
 
 
 logging:
